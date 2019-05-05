@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  fib-postgres:
+    image: 'postgres:latest'
+  fib-redis:
+    image: 'redis:latest'
+  fib-server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    environment:
+      - REDIS_HOST=fib-redis
+      - REDIS_PORT=6379
+      - PG_HOST=fib-postgres
+      - PG_USER=postgres
+      - PG_DATABASE=postgres
+      - PG_PASSWORD=postgres_password
+      - PG_PORT=5432
+  fib-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+  fib-worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./worker:/app
+    environment:
+      - REDIS_HOST=fib-redis
+      - REDIS_PORT=6379
+  fib-nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - '8080:80'
+    restart: always
