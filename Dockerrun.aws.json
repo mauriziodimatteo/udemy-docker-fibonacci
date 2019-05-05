@@ -1,0 +1,36 @@
+{   
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "udemy-docker-fibonacci-client",
+            "image": "mdimatteo/udemy-docker-fibonacci-client",
+            "hostname": "fib-client",
+            "essential": false
+        }, 
+        {
+            "name": "udemy-docker-fibonacci-server",
+            "image": "mdimatteo/udemy-docker-fibonacci-server",
+            "hostname": "fib-server",
+            "essential": false
+        },
+        {
+            "name": "udemy-docker-fibonacci-worker",
+            "image": "mdimatteo/udemy-docker-fibonacci-worker",
+            "hostname": "fib-worker",
+            "essential": false
+        },
+        {
+            "name": "udemy-docker-fibonacci-nginx",
+            "image": "mdimatteo/udemy-docker-fibonacci-nginx",
+            "hostname": "fib-nginx",  
+            "essential": true,
+            "portMappings":[
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["udemy-docker-fibonacci-client", "udemy-docker-fibonacci-server"]
+        }
+    ]
+}
