@@ -24,16 +24,17 @@ after_success:
   - docker push mdimatteo/udemy-docker-fibonacci-nginx
   - docker push mdimatteo/udemy-docker-fibonacci-server
   - docker push mdimatteo/udemy-docker-fibonacci-worker
-  # Deploy an AWS
-  deploy:
-    provider: elasticbeanstalk
-    region: us-east-1
-    app: udemy-docker-fibonacci
-    env: UdemyDockerFibonacci-env
-    bucket_name: elasticbeanstalk-us-east-1-584052918819
-    bucket_path: udemy-docker-fibonacci
-    on:
-      branch: master
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key:
-      secure: $AWS_SECRET_KEY
+  
+# Deploy an AWS
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-1
+  app: udemy-docker-fibonacci
+  env: UdemyDockerFibonacci-env
+  bucket_name: elasticbeanstalk-us-east-1-584052918819
+  bucket_path: udemy-docker-fibonacci
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
