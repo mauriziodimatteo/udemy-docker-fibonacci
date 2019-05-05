@@ -30,7 +30,7 @@ deploy:
   provider: elasticbeanstalk
   region: us-east-1
   app: udemy-docker-fibonacci
-  env: UdemyDockerFibonacci-env-1
+  env: UdemyDockerFibonacci-env-2
   bucket_name: elasticbeanstalk-us-east-1-584052918819
   bucket_path: udemy-docker-fibonacci
   on:
