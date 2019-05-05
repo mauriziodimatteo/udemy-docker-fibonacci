@@ -26,8 +26,8 @@
             "name": "udemy-docker-fibonacci-nginx",
             "image": "mdimatteo/udemy-docker-fibonacci-nginx",
             "hostname": "fib-nginx",  
-            "essential": true,,
-            "memory": 128
+            "essential": true,
+            "memory": 128,
             "portMappings":[
                 {
                     "hostPort": 80,
