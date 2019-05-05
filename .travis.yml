@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+
+# Build test images (client only)
+before_install:
+  - docker build -t mdimatteo/udemy-docker-fibonacci-test -f ./client/Dockerfile.dev ./client
+
+# Run test container (client only)
+script:
+  - docker run mdimatteo/udemy-docker-fibonacci-test npm run test -- --coverage
+
+# Build and push production images
+after_success:
+  # Build
+  - docker build -t mdimatteo/udemy-docker-fibonacci-client ./client
+  - docker build -t mdimatteo/udemy-docker-fibonacci-nginx ./nginx
+  - docker build -t mdimatteo/udemy-docker-fibonacci-server ./server
+  - docker build -t mdimatteo/udemy-docker-fibonacci-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push images to Docker Hub
+  - docker push mdimatteo/udemy-docker-fibonacci-client
+  - docker push mdimatteo/udemy-docker-fibonacci-nginx
+  - docker push mdimatteo/udemy-docker-fibonacci-server
+  - docker push mdimatteo/udemy-docker-fibonacci-worker
